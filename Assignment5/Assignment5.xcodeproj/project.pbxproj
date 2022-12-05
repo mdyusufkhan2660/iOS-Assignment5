@@ -16,8 +16,8 @@
 		505D5BA829379466006F7218 /* Assignment5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D5BA729379466006F7218 /* Assignment5Tests.swift */; };
 		505D5BB229379466006F7218 /* Assignment5UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D5BB129379466006F7218 /* Assignment5UITests.swift */; };
 		505D5BB429379466006F7218 /* Assignment5UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D5BB329379466006F7218 /* Assignment5UITestsLaunchTests.swift */; };
-		505D5BC12937A527006F7218 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D5BC02937A527006F7218 /* SettingTableViewCell.swift */; };
-		505D5BC32937B8A4006F7218 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D5BC22937B8A4006F7218 /* SwitchTableViewCell.swift */; };
+		505D5BC9293E4AA2006F7218 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D5BC8293E4AA2006F7218 /* SettingTableViewCell.swift */; };
+		505D5BCB293E4B72006F7218 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D5BCA293E4B72006F7218 /* ProfileTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +51,8 @@
 		505D5BAD29379466006F7218 /* Assignment5UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Assignment5UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		505D5BB129379466006F7218 /* Assignment5UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment5UITests.swift; sourceTree = "<group>"; };
 		505D5BB329379466006F7218 /* Assignment5UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment5UITestsLaunchTests.swift; sourceTree = "<group>"; };
-		505D5BC02937A527006F7218 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
-		505D5BC22937B8A4006F7218 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		505D5BC8293E4AA2006F7218 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		505D5BCA293E4B72006F7218 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +110,8 @@
 				505D5B9929379466006F7218 /* Assets.xcassets */,
 				505D5B9B29379466006F7218 /* LaunchScreen.storyboard */,
 				505D5B9E29379466006F7218 /* Info.plist */,
-				505D5BC02937A527006F7218 /* SettingTableViewCell.swift */,
-				505D5BC22937B8A4006F7218 /* SwitchTableViewCell.swift */,
+				505D5BC8293E4AA2006F7218 /* SettingTableViewCell.swift */,
+				505D5BCA293E4B72006F7218 /* ProfileTableViewCell.swift */,
 			);
 			path = Assignment5;
 			sourceTree = "<group>";
@@ -266,8 +266,8 @@
 			files = (
 				505D5B9529379464006F7218 /* ViewController.swift in Sources */,
 				505D5B9129379464006F7218 /* AppDelegate.swift in Sources */,
-				505D5BC32937B8A4006F7218 /* SwitchTableViewCell.swift in Sources */,
-				505D5BC12937A527006F7218 /* SettingTableViewCell.swift in Sources */,
+				505D5BC9293E4AA2006F7218 /* SettingTableViewCell.swift in Sources */,
+				505D5BCB293E4B72006F7218 /* ProfileTableViewCell.swift in Sources */,
 				505D5B9329379464006F7218 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

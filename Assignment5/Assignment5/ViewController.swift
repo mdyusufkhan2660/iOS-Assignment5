@@ -14,22 +14,19 @@ struct Section {
 
 enum SettingsOptionType {
     case staticCell(model: SettingsOption)
-    case switchCell(model: SettingsSwitchOption)
-}
-
-struct SettingsSwitchOption {
-    let title : String
-    let icon : UIImage?
-    let iconBackgroundColor : UIColor
-    let handler : (() -> Void)
-    var isOn : Bool
+    case profileCell(model: ProfileOption)
 }
 
 struct SettingsOption {
     let title : String
     let icon : UIImage?
     let iconBackgroundColor : UIColor
-    let handler : (() -> Void)
+}
+struct ProfileOption {
+    let status: String
+    let title : String
+    let icon : UIImage?
+    let iconBackgroundColor : UIColor
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -38,8 +35,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(SettingTableViewCell.self,
                        forCellReuseIdentifier: SettingTableViewCell.identifier)
-        table.register(SwitchTableViewCell.self,
-                       forCellReuseIdentifier: SwitchTableViewCell.identifier)
+        
+        table.register(ProfileTableViewCell.self,
+                       forCellReuseIdentifier: ProfileTableViewCell.identifier)
         return table
     }()
     
@@ -49,51 +47,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         configure()
         title = "Settings"
-        view.addSubview(tableView)
+        tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
+        view.addSubview(tableView)
     }
     
     func configure() {
         
-        //MARK: SECTION ONE
+        
+        //PROFILE SECTION
         models.append(Section(title: "", options: [
-            .staticCell(model: SettingsOption(title: "Starred Messages", icon: UIImage(systemName: "star.fill"), iconBackgroundColor: .systemYellow, handler: {
-             
-            })),
-            .staticCell(model: SettingsOption(title: "Linked Devices", icon: UIImage(systemName: "laptopcomputer"), iconBackgroundColor: .systemTeal, handler: {
-               
-            }))
+            .profileCell(model: ProfileOption(status: "Busy", title: "MAD400", icon: UIImage(systemName: "person.circle"), iconBackgroundColor: .gray))
         ]))
         
-        //MARK: SECTION TWO
+        //SECTION ONE
         models.append(Section(title: "", options: [
-            .staticCell(model: SettingsOption(title: "Account", icon: UIImage(systemName: "key.fill"), iconBackgroundColor: .systemBlue, handler: {
-             
-            })),
-            .staticCell(model: SettingsOption(title: "Privacy", icon: UIImage(systemName: "lock.fill"), iconBackgroundColor: .systemBlue, handler: {
-              
-            })),
-            .staticCell(model: SettingsOption(title: "Chats", icon: UIImage(systemName: "message"), iconBackgroundColor: .systemGreen, handler: {
-                
-            })),
-            .staticCell(model: SettingsOption(title: "Notifications", icon: UIImage(systemName: "bell.badge.fill"), iconBackgroundColor: .systemRed, handler: {
-                
-            })),
-            .staticCell(model: SettingsOption(title: "Storage and Data", icon: UIImage(systemName: "arrow.up.arrow.down"), iconBackgroundColor: .systemGreen, handler: {
-                
-            }))
+            .staticCell(model: SettingsOption(title: "Starred Messages", icon: UIImage(systemName: "star.fill"), iconBackgroundColor: .systemYellow)),
+            .staticCell(model: SettingsOption(title: "Linked Devices", icon: UIImage(systemName: "laptopcomputer"), iconBackgroundColor: .systemTeal))
         ]))
         
-        //MARK: SECTION THREE
+        //SECTION TWO
         models.append(Section(title: "", options: [
-            .staticCell(model: SettingsOption(title: "Help", icon: UIImage(systemName: "info"), iconBackgroundColor: .systemBlue, handler: {
-              
-            })),
-            .staticCell(model: SettingsOption(title: "Tell a Friend", icon: UIImage(systemName: "heart.fill"), iconBackgroundColor: .systemRed, handler: {
-                
-            }))
+            .staticCell(model: SettingsOption(title: "Account", icon: UIImage(systemName: "key.fill"), iconBackgroundColor: .systemBlue)),
+            .staticCell(model: SettingsOption(title: "Privacy", icon: UIImage(systemName: "lock.fill"), iconBackgroundColor: .systemBlue)),
+            .staticCell(model: SettingsOption(title: "Chats", icon: UIImage(systemName: "message"), iconBackgroundColor: .systemGreen)),
+            .staticCell(model: SettingsOption(title: "Notifications", icon: UIImage(systemName: "bell.badge.fill"), iconBackgroundColor: .systemRed)),
+            .staticCell(model: SettingsOption(title: "Storage and Data", icon: UIImage(systemName: "arrow.up.arrow.down"), iconBackgroundColor: .systemGreen))
+        ]))
+        
+        //SECTION THREE
+        models.append(Section(title: "", options: [
+            .staticCell(model: SettingsOption(title: "Help", icon: UIImage(systemName: "info"), iconBackgroundColor: .systemBlue)),
+            .staticCell(model: SettingsOption(title: "Tell a Friend", icon: UIImage(systemName: "heart.fill"), iconBackgroundColor: .systemRed))
         ]))
     }
     
@@ -110,6 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return models[section].options.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section].options[indexPath.row]
         
@@ -123,11 +111,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             cell.configure(with: model)
             return cell
-        case .switchCell(let model):
+        case .profileCell(let model):
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SwitchTableViewCell.identifier,
+                withIdentifier: ProfileTableViewCell.identifier,
                 for: indexPath
-            ) as? SwitchTableViewCell else {
+            ) as? ProfileTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: model)
@@ -135,48 +123,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let type = models[indexPath.section].options[indexPath.row]
-        switch type.self {
-        case .staticCell(let model):
-            model.handler()
-        case .switchCell(let model):
-            model.handler()
-        }
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = UIView()
-        footer.frame = CGRect(x: 0, y: 0, width: 540, height: 55)
-          
-        if (section == models.count - 1){
-            footer.backgroundColor = .clear
-            let lbl = UILabel()
-            lbl.frame = CGRect(x: 10, y: 0, width: 540, height: 40)
-            lbl.backgroundColor = .clear
-            lbl.font = UIFont(name: "HelveticaNeue-Light", size: 10)
-            lbl.text = "Created By MAD400 Section 200 - 3"
-            lbl.numberOfLines = 1
-            footer.addSubview(lbl)
-            let lbl2 = UILabel()
-            lbl2.frame = CGRect(x: 10, y: 12, width: 540, height: 40)
-            lbl2.backgroundColor = .clear
-            lbl2.font = UIFont(name: "HelveticaNeue-Light", size: 10)
-            lbl2.text = "Version 1.0.0"
-            lbl2.numberOfLines = 1
-            footer.addSubview(lbl2)
-            self.tableView.tableFooterView = footer
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let model = models[indexPath.section].options[indexPath.row]
+        
+        switch model.self {
+            case .profileCell(_):
+            return 85.0
+        case .staticCell(_):
+            return 44.0
         }
-            return footer
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if (section == models.count - 1) {
-            return 60.0
-        } else {
-            return 0.0
-        }
+        
     }
 }
